@@ -87,7 +87,7 @@ export default function Home() {
         );
 
         const response = await fetch(
-            "http://127.0.0.1:8000/dashboard/generate",
+            "https://dashboard-backend-rekb.onrender.com/dashboard/generate",
             {
                 method: "POST",
                 body: formData,
@@ -125,7 +125,7 @@ const uploadDataset = async (): Promise<number> => {
     formData.append("file", file);
 
     const response = await fetch(
-        "http://127.0.0.1:8000/dashboard/upload",
+        "https://dashboard-backend-rekb.onrender.com/dashboard/upload",
         {
             method: "POST",
             body: formData,
