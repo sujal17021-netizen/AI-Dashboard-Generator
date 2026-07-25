@@ -80,95 +80,36 @@ async def upload_dataset(
 # GENERATE DASHBOARD
 # ==========================================
 
+# 
 @router.post("/generate")
 async def generate_dashboard(
-    
     dataset_id: int = Form(...),
     prompt: str = Form(...),
     db: Session = Depends(get_db)
 ):
-     print("GENERATE ROUTE REACHED")
+    print("GENERATE ROUTE REACHED")
 
-     return {
-        "dataset_id": dataset_id,
-        "prompt": prompt
-    }
-#     try:
+    try:
+        print("STEP 1")
+        intent = classify_prompt(prompt)
 
-#         # ----------------------------------
-#         # DETECT PROMPT TYPE
-#         # ----------------------------------
-#         print("STEP 1")
-#         intent = classify_prompt(prompt)
+        print("STEP 2")
+        df = fetch_dataset(
+            db=db,
+            dataset_id=dataset_id
+        )
 
-#         print("\n================================")
-#         print("PROMPT :", prompt)
-#         print("INTENT :", intent)
-#         print("================================\n")
+        print("Rows:", len(df))
 
+        print("STEP 3")
+        dashboard = generate_auto_dashboard(df)
 
-#         # ----------------------------------
-#         # FETCH DATASET FROM DATABASE
-#         # ----------------------------------
-#         print("STEP 2")
-#         df = fetch_dataset(
-#             db=db,
-#             dataset_id=dataset_id
-#         )
+        print("STEP 4")
 
-#         print(f"Rows fetched from database : {len(df)}")
+        return jsonable_encoder(dashboard)
 
-
-#         # ----------------------------------
-#         # GENERATE DASHBOARD
-#         # ----------------------------------
-#         print("STEP 3")
-#         # dashboard = generate_auto_dashboard(
-#         #     df
-#         # )
-
-#         print("STEP 4")
-
-#         # ----------------------------------
-#         # PRINT INFORMATION
-#         # ----------------------------------
-
-#         print("\n===== DASHBOARD GENERATED =====")
-
-#         print(
-#             f"Charts : {len(dashboard['charts'])}"
-#         )
-
-#         print(
-#             f"KPIs : {len(dashboard['kpis'])}"
-#         )
-
-#         print("===============================\n")
-
-
-#         # ----------------------------------
-#         # RETURN RESPONSE
-#         # ----------------------------------
-
-#         # return jsonable_encoder(
-#         #     dashboard
-#         # )
-#         return {
-#     "success": True,
-#     "rows": len(df),
-#     "columns": len(df.columns)
-# }
-    
-#     # except Exception as e:
-
-#     #     traceback.print_exc()
-
-#     #     raise HTTPException(
-#     #         status_code=500,
-#     #         detail=str(e)
-#     #     )
-#     except Exception as e:
-#         print("========== ERROR ==========")
-#         print(e)
-#         traceback.print_exc()
-#         raise
+    except Exception as e:
+        print("========== ERROR ==========")
+        print(e)
+        traceback.print_exc()
+        raise
