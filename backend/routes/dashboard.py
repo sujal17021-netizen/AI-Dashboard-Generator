@@ -121,9 +121,10 @@ async def generate_dashboard(
         # GENERATE DASHBOARD
         # ----------------------------------
         print("STEP 3")
-        dashboard = generate_auto_dashboard(
-            df
-        )
+        # dashboard = generate_auto_dashboard(
+        #     df
+        # )
+
         print("STEP 4")
 
         # ----------------------------------
@@ -147,9 +148,14 @@ async def generate_dashboard(
         # RETURN RESPONSE
         # ----------------------------------
 
-        return jsonable_encoder(
-            dashboard
-        )
+        # return jsonable_encoder(
+        #     dashboard
+        # )
+        return {
+    "success": True,
+    "rows": len(df),
+    "columns": len(df.columns)
+}
     
     # except Exception as e:
 
