@@ -82,10 +82,14 @@ async def upload_dataset(
 
 @router.post("/generate")
 async def generate_dashboard(
+    
     dataset_id: int = Form(...),
     prompt: str = Form(...),
     db: Session = Depends(get_db)
 ):
+    print("===== GENERATE ROUTE HIT =====")
+    print("Dataset:", dataset_id)
+    print("Prompt:", prompt)
     try:
 
         # ----------------------------------
