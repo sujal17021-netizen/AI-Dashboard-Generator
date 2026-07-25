@@ -87,21 +87,38 @@ async def generate_dashboard(
     prompt: str = Form(...),
     db: Session = Depends(get_db)
 ):
-    print("GENERATE ROUTE REACHED")
+    print("========== GENERATE ROUTE REACHED ==========")
 
     try:
+        # -------------------------
+        # STEP 1
+        # -------------------------
         print("STEP 1")
         intent = classify_prompt(prompt)
+        print("Intent:", intent)
 
+        # -------------------------
+        # STEP 2
+        # -------------------------
         print("STEP 2")
+
         df = fetch_dataset(
             db=db,
             dataset_id=dataset_id
         )
 
-        print("Rows:", len(df))
+        print(f"Rows fetched from database: {len(df)}")
 
+        # TEMPORARY: Limit rows to avoid Render memory crash
+        df = df.head(10000)
+
+        print(f"Rows after limiting: {len(df)}")
+
+        # -------------------------
+        # STEP 3
+        # -------------------------
         print("STEP 3")
+
         dashboard = generate_auto_dashboard(df)
 
         print("STEP 4")
@@ -112,4 +129,8 @@ async def generate_dashboard(
         print("========== ERROR ==========")
         print(e)
         traceback.print_exc()
-        raise
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
