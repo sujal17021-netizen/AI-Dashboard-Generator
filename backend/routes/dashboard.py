@@ -87,86 +87,88 @@ async def generate_dashboard(
     prompt: str = Form(...),
     db: Session = Depends(get_db)
 ):
-    print("========== GENERATE API CALLED ==========")
-    print("===== GENERATE ROUTE HIT =====")
-    print("Dataset:", dataset_id)
-    print("Prompt:", prompt)
-    try:
+     print("GENERATE ROUTE REACHED")
 
-        # ----------------------------------
-        # DETECT PROMPT TYPE
-        # ----------------------------------
-        print("STEP 1")
-        intent = classify_prompt(prompt)
+     return {
+        "dataset_id": dataset_id,
+        "prompt": prompt
+    }
+#     try:
 
-        print("\n================================")
-        print("PROMPT :", prompt)
-        print("INTENT :", intent)
-        print("================================\n")
+#         # ----------------------------------
+#         # DETECT PROMPT TYPE
+#         # ----------------------------------
+#         print("STEP 1")
+#         intent = classify_prompt(prompt)
 
-
-        # ----------------------------------
-        # FETCH DATASET FROM DATABASE
-        # ----------------------------------
-        print("STEP 2")
-        df = fetch_dataset(
-            db=db,
-            dataset_id=dataset_id
-        )
-
-        print(f"Rows fetched from database : {len(df)}")
+#         print("\n================================")
+#         print("PROMPT :", prompt)
+#         print("INTENT :", intent)
+#         print("================================\n")
 
 
-        # ----------------------------------
-        # GENERATE DASHBOARD
-        # ----------------------------------
-        print("STEP 3")
-        # dashboard = generate_auto_dashboard(
-        #     df
-        # )
+#         # ----------------------------------
+#         # FETCH DATASET FROM DATABASE
+#         # ----------------------------------
+#         print("STEP 2")
+#         df = fetch_dataset(
+#             db=db,
+#             dataset_id=dataset_id
+#         )
 
-        print("STEP 4")
-
-        # ----------------------------------
-        # PRINT INFORMATION
-        # ----------------------------------
-
-        print("\n===== DASHBOARD GENERATED =====")
-
-        print(
-            f"Charts : {len(dashboard['charts'])}"
-        )
-
-        print(
-            f"KPIs : {len(dashboard['kpis'])}"
-        )
-
-        print("===============================\n")
+#         print(f"Rows fetched from database : {len(df)}")
 
 
-        # ----------------------------------
-        # RETURN RESPONSE
-        # ----------------------------------
+#         # ----------------------------------
+#         # GENERATE DASHBOARD
+#         # ----------------------------------
+#         print("STEP 3")
+#         # dashboard = generate_auto_dashboard(
+#         #     df
+#         # )
 
-        # return jsonable_encoder(
-        #     dashboard
-        # )
-        return {
-    "success": True,
-    "rows": len(df),
-    "columns": len(df.columns)
-}
+#         print("STEP 4")
+
+#         # ----------------------------------
+#         # PRINT INFORMATION
+#         # ----------------------------------
+
+#         print("\n===== DASHBOARD GENERATED =====")
+
+#         print(
+#             f"Charts : {len(dashboard['charts'])}"
+#         )
+
+#         print(
+#             f"KPIs : {len(dashboard['kpis'])}"
+#         )
+
+#         print("===============================\n")
+
+
+#         # ----------------------------------
+#         # RETURN RESPONSE
+#         # ----------------------------------
+
+#         # return jsonable_encoder(
+#         #     dashboard
+#         # )
+#         return {
+#     "success": True,
+#     "rows": len(df),
+#     "columns": len(df.columns)
+# }
     
-    # except Exception as e:
+#     # except Exception as e:
 
-    #     traceback.print_exc()
+#     #     traceback.print_exc()
 
-    #     raise HTTPException(
-    #         status_code=500,
-    #         detail=str(e)
-    #     )
-    except Exception as e:
-        print("========== ERROR ==========")
-        print(e)
-        traceback.print_exc()
-        raise
+#     #     raise HTTPException(
+#     #         status_code=500,
+#     #         detail=str(e)
+#     #     )
+#     except Exception as e:
+#         print("========== ERROR ==========")
+#         print(e)
+#         traceback.print_exc()
+#         raise
