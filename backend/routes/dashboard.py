@@ -110,7 +110,7 @@ async def generate_dashboard(
         print(f"Rows fetched from database: {len(df)}")
 
         # TEMPORARY: Limit rows to avoid Render memory crash
-        df = df.head(10000)
+        
 
         print(f"Rows after limiting: {len(df)}")
 

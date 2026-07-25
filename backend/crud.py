@@ -10,22 +10,32 @@ from datetime import datetime, date, time
 # ==========================================================
 # Fetch Dataset
 # ==========================================================
+import pandas as pd
+from sqlalchemy.orm import Session
+from models import DatasetRow
+
+
 def fetch_dataset(
     db: Session,
     dataset_id: int
 ):
 
+    print("Fetching dataset...")
+
     rows = (
         db.query(DatasetRow)
         .filter(DatasetRow.dataset_id == dataset_id)
+        .limit(2000)      # <-- TEMPORARY
         .all()
     )
 
-    print(f"Rows fetched from DB : {len(rows)}")
+    print("Rows fetched :", len(rows))
 
     dataframe = pd.DataFrame(
         [row.row_data for row in rows]
     )
+
+    print("DataFrame created")
 
     return dataframe
 
