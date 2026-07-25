@@ -150,16 +150,12 @@ async def generate_dashboard(
         return jsonable_encoder(
             dashboard
         )
+    
     except Exception as e:
-     print("========== ERROR ==========")
-    print(e)
-    traceback.print_exc()
-    raise
-    # except Exception as e:
 
-    #     traceback.print_exc()
+        traceback.print_exc()
 
-    #     raise HTTPException(
-    #         status_code=500,
-    #         detail=str(e)
-    #     )
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
