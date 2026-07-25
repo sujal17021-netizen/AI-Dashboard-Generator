@@ -49,7 +49,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
-        "http://127.0.0.1:3000",
+        "https://ai-dashboard-generator-six.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -265,7 +265,7 @@ async def generate_dashboard_ai(
     }
 
     # -----------------------------
-    # Return Dashboard
+    # Return Dashboard 
     # -----------------------------
        # -----------------------------
     # Return Dashboard
