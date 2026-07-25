@@ -87,6 +87,7 @@ async def generate_dashboard(
     prompt: str = Form(...),
     db: Session = Depends(get_db)
 ):
+    print("========== GENERATE API CALLED ==========")
     print("===== GENERATE ROUTE HIT =====")
     print("Dataset:", dataset_id)
     print("Prompt:", prompt)
@@ -149,13 +150,16 @@ async def generate_dashboard(
         return jsonable_encoder(
             dashboard
         )
-
-
     except Exception as e:
+     print("========== ERROR ==========")
+    print(e)
+    traceback.print_exc()
+    raise
+    # except Exception as e:
 
-        traceback.print_exc()
+    #     traceback.print_exc()
 
-        raise HTTPException(
-            status_code=500,
-            detail=str(e)
-        )
+    #     raise HTTPException(
+    #         status_code=500,
+    #         detail=str(e)
+    #     )
