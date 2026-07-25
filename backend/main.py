@@ -51,7 +51,6 @@ app.add_middleware(
         "http://localhost:3000",
         "https://ai-dashboard-generator-six.vercel.app"
     ],
-        allow_origins=["*"],
 
     allow_credentials=True,
     allow_methods=["*"],
