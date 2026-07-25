@@ -25,7 +25,7 @@ def fetch_dataset(
     rows = (
         db.query(DatasetRow)
         .filter(DatasetRow.dataset_id == dataset_id)
-        .limit(2000)      # <-- TEMPORARY
+        .limit(10000)      # <-- TEMPORARY
         .all()
     )
 
