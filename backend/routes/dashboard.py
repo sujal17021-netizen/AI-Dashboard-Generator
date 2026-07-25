@@ -96,7 +96,7 @@ async def generate_dashboard(
         # ----------------------------------
         # DETECT PROMPT TYPE
         # ----------------------------------
-
+        print("STEP 1")
         intent = classify_prompt(prompt)
 
         print("\n================================")
@@ -108,7 +108,7 @@ async def generate_dashboard(
         # ----------------------------------
         # FETCH DATASET FROM DATABASE
         # ----------------------------------
-
+        print("STEP 2")
         df = fetch_dataset(
             db=db,
             dataset_id=dataset_id
@@ -120,11 +120,11 @@ async def generate_dashboard(
         # ----------------------------------
         # GENERATE DASHBOARD
         # ----------------------------------
-
+        print("STEP 3")
         dashboard = generate_auto_dashboard(
             df
         )
-
+        print("STEP 4")
 
         # ----------------------------------
         # PRINT INFORMATION
@@ -151,11 +151,16 @@ async def generate_dashboard(
             dashboard
         )
     
+    # except Exception as e:
+
+    #     traceback.print_exc()
+
+    #     raise HTTPException(
+    #         status_code=500,
+    #         detail=str(e)
+    #     )
     except Exception as e:
-
+        print("========== ERROR ==========")
+        print(e)
         traceback.print_exc()
-
-        raise HTTPException(
-            status_code=500,
-            detail=str(e)
-        )
+        raise
